@@ -1,0 +1,59 @@
+class Surgery {
+public:
+    Surgery() {}
+
+    // Set the charge for a specific surgery type
+    void setCharge(const std::string& surgeryType, double charge) {
+        charges[surgeryType] = charge;
+    }
+
+    // Get the charge for a specific surgery type
+    double getCharge(const std::string& surgeryType) const {
+        auto it = charges.find(surgeryType);
+        if (it != charges.end()) {
+            return it->second;
+        } else {
+            std::cerr << "Error: Surgery type not found." << std::endl;
+            return 0.0;
+        }
+    }
+
+private:
+    std::unordered_map<std::string, double> charges;
+};
+
+class PatientAccount {
+public:
+    PatientAccount() : totalCharges(0.0) {}
+
+    // Update the charges variable based on the selected surgery type
+    void updateCharges(const Surgery& surgery, const std::string& surgeryType) {
+        double charge = surgery.getCharge(surgeryType);
+        totalCharges += charge;
+        std::cout << "Patient account updated. Total charges: $" << totalCharges << std::endl;
+    }
+
+private:
+    double totalCharges;
+};
+
+int main() {
+    // Create an instance of the Surgery class
+    Surgery surgery;
+
+    // Set charges for different types of surgeries
+    surgery.setCharge("Appendectomy", 5000.0);
+    surgery.setCharge("Cataract Surgery", 3000.0);
+    surgery.setCharge("Knee Replacement", 10000.0);
+    surgery.setCharge("Gallbladder Removal", 7000.0);
+    surgery.setCharge("Heart Bypass", 15000.0);
+
+    // Create an instance of the PatientAccount class
+    PatientAccount patientAccount;
+
+    // Example: Update charges for a specific surgery type
+    std::string selectedSurgery = "Knee Replacement";
+    patientAccount.updateCharges(surgery, selectedSurgery);
+
+    return 0;
+}
