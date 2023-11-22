@@ -1,0 +1,24 @@
+int main(){
+//Create patient object
+
+//Prompt user for name using setName() function
+
+
+//While loop to go on as long as there are more surgeries
+  //Prompt user with the surgery names menu
+  //Use getSurgery() and getCost() functions
+
+//While loop to go on as long as there is more medication
+  //Prompt user with the medication names menu
+  //Use getMedication() and getCost() functions
+  //Grab cost and add it with addCharge function
+
+
+//Prompt User for days stayed
+//Use addDays() function
+//Use printReceipt function
+
+
+
+return 0
+}
