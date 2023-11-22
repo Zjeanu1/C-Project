@@ -1,3 +1,66 @@
-class Patient{
-  
-}
+#pragma once
+
+#include <string>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+class Patient {
+private:
+	float charges;
+	int days;
+	const float dayRate = 1250;
+	string fname;
+	string lname;
+
+public:
+
+	//Constructor
+	Patient() {
+		charges = 0;
+		days = 0;
+		fname = "";
+		lname = "";
+
+		}
+
+
+	//Setters
+	void setName() {
+
+
+		cout << "Enter patient first name:" << endl;
+		cin >> fname;
+		cout << "Enter patient last name:" << endl;
+		cin >> lname;
+
+	}
+
+	void addCharge(float c) {
+		charges += c;
+	}
+	
+	void addDays(int d) {
+		days += d;
+
+	}
+
+
+	//Getters
+	float calcDays() {
+		return days* dayRate;
+	}
+
+	float getCharges() {
+		return charges;
+
+	}
+
+	void getName() {
+		cout << lname << ", " << fname;
+
+	}
+
+	friend class Surgery;
+
+};
