@@ -1,1 +1,65 @@
-WAASSSSUUUP
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+class Pharmacy {
+public:
+    double getMedicationCost(const string& medicationType);
+
+private:
+    double getCost(const string& medicationType);
+};
+
+double Pharmacy::getMedicationCost(const string& medicationType) {
+    double cost = getCost(medicationType);
+    if (cost != -1) {
+        return cost;
+    } else {
+        cout << "This does not exist !!!" << endl;
+        return 0; 
+    }
+}
+
+double Pharmacy::getCost(const string& medicationType) {
+    if (medicationType == "1") {
+        return 50;
+    } else if (medicationType == "2") {
+        return 80;
+    } else if (medicationType == "3") {
+        return 30;
+    } else if (medicationType == "4") {
+        return 25;
+    } else if (medicationType == "5") {
+        return 40;
+    }
+    return -1; 
+}
+int main() {
+
+  char moreMedications = 'Y';
+double totalMedicationCost = 0.0;
+
+  Pharmacy pharmacyObject; // Creating a Pharmacy object
+while (moreMedications == 'Y' || moreMedications == 'y' ) {
+    cout << "Medication Names Menu:\n"
+         << "1. Antibiotic\n"
+         << "2. Cough syrup\n"
+         << "3. Vitamans\n"
+         << "4. Antacid\n"
+         << "Enter the medication type: ";
+   
+  
+  string medicationType;
+    getline(cin, medicationType);
+
+   
+    double cost = pharmacyObject.getMedicationCost(medicationType);
+    totalMedicationCost += cost; 
+
+    cout << "Do you have more medications? Answer (Y or N): ";
+    cin >> moreMedications;
+    cin.ignore(); 
+}
+}
+
