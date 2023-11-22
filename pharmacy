@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+class Pharmacy {
+public:
+    double getMedicationCost(const string& medicationType);
+
+private:
+    double getCost(const string& medicationType);
+};
+
+double Pharmacy::getMedicationCost(const string& medicationType) {
+    double cost = getCost(medicationType);
+    if (cost != -1) {
+        return cost;
+    } else {
+        cout << "Medication not found!" << endl;
+        return 0; // If medication not found, return 0 cost
+    }
+}
+
+double Pharmacy::getCost(const string& medicationType) {
+    if (medicationType == "1") {
+        return 50;
+    } else if (medicationType == "2") {
+        return 80;
+    } else if (medicationType == "3") {
+        return 30;
+    } else if (medicationType == "4") {
+        return 25;
+    } else if (medicationType == "5") {
+        return 40;
+    }
+    return -1; 
+}
+
