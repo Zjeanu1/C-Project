@@ -1,0 +1,49 @@
+#include "Patient.h"
+#include "Surgery.h"
+#include "Pharmacy.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+	Patient p;
+
+
+
+	// Creating a Pharmacy object
+	Pharmacy m;
+	char moreMedications = '-1';
+
+
+	string medicationType;
+	bool flag = true;
+
+	while (flag) {
+		char ans = 'y';
+			cout << "Did your patient have any medications?" << endl;
+		cin >> ans;
+		if (ans == 'Y' || ans == 'y') {
+			cout << "Medication Names Menu:\n"
+				<< "1. Antibiotic\n"
+				<< "2. Cough syrup\n"
+				<< "3. Vitamans\n"
+				<< "4. Antacid\n"
+				<< "Enter the medication type: ";
+			cin >> medicationType;
+
+			float cost = m.getMedicationCost(medicationType);	\
+				p.addCharge(cost);
+		}
+		else {
+			flag = false;
+
+		}
+		
+	}
+
+	cout << "Your charges:"<<p.getCharges() << endl;
+
+
+	return 0;
+}
