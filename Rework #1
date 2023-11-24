@@ -1,0 +1,243 @@
+//PATIENT CLASS
+
+
+#pragma once
+
+#include <string>
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+class Patient {
+
+friend class Surgery;
+
+
+private:
+	float charges;
+	int days;
+	const float dayRate = 1250;
+	string fname;
+	string lname;
+
+public:
+
+	//Constructor
+	Patient() {
+		charges = 0;
+		days = 0;
+		fname = "";
+		lname = "";
+
+		}
+
+
+	//Setters
+	void setName() {
+
+
+		cout << "Enter your patient's first name:" << endl;
+		cin >> fname;
+		cout << "Enter your patient's last name:" << endl;
+		cin >> lname;
+
+	}
+
+	void addCharge(float c) {
+		charges += c;
+	}
+	
+	void addDays(int d) {
+		days += d;
+
+	}
+
+
+	//Getters
+	float calcDays() {
+		return days * dayRate;
+	}
+
+	void getCharges() {
+		cout<<"Total Charges:\t\t$" << charges<<endl;
+
+	}
+
+	void getName() {
+		cout << "Patient:\t"<<lname << ",\t" << fname<<endl;
+
+	}
+
+  void getDays(){
+    cout<<"Days stayed:\t"<<days<<"\t$"<<calcDays()<<endl;
+    
+  }
+
+};
+
+
+
+//MAIN MODULE
+#include "Patient.h"
+#include "Surgery.h"
+#include "Pharmacy.h"
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+int main() {
+  Patient p;
+  int days;
+
+
+  // Creating a Pharmacy object
+  Pharmacy m;
+  
+  p.setName();
+
+  
+  string medicationType;
+  bool flag = true;
+  int count = 0;
+  while (flag) {
+    char ans = 'y';
+      cout << "Did your patient have any medications(Y or N)?" << endl;
+    cin >> ans;
+    if (ans == 'Y' || ans == 'y') {
+      cout << "Medication Names Menu:\n"
+        << "1. Antibiotic\n"
+        << "2. Cough syrup\n"
+        << "3. Vitamans\n"
+        << "4. Antacid\n"
+        << "5. Ibuprofen\n"
+        << "Enter the medication type: ";
+      cin >> medicationType;
+
+      float cost = m.getMedicationCost(medicationType,count);	\
+        p.addCharge(cost);
+      count++;
+    }
+    else {
+      flag = false;
+
+    }
+  }
+
+  flag = true;
+  
+  while(flag){
+    cout << "How many days did your patient spend in the hospital?"<<endl;
+    cin >> days;
+    if (days > 0) {
+      p.addDays(days);
+      p.addCharge(p.calcDays());
+      flag = false;
+    }
+  }
+
+  p.getName();
+  m.returnPharmacyList(count);
+  p.getDays();
+  p.getCharges();
+  
+  return 0;
+}
+
+
+
+
+//PHARMACY CLASS
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+class Pharmacy {
+public:
+   static const int MAX = 10;
+
+    string listOfMeds[MAX];
+    float getMedicationCost(const string& medicationType,int c);
+    
+    
+    void returnPharmacyList(int c) {
+        for (int i = 0; i < c;i++) {
+            cout << listOfMeds[i]<<"\t\t\t";
+            if(listOfMeds[i] == "Antibiotic"){
+              cout<<"$50"<<endl;
+              
+            }
+            else if(listOfMeds[i] == "Cough Syrup"){
+              cout<<"$80"<<endl;
+            }
+            else if(listOfMeds[i] == "Vitamins"){
+              cout<<"$30"<<endl;
+            }
+            
+            else if(listOfMeds[i] == "Antacid"){
+            cout<<"$25"<<endl;
+            }
+            else if(listOfMeds[i] == "Ibuprofen"){
+              cout<<"$40"<<endl;
+            }
+        }
+
+    }
+private:
+    float getCost(const string& medicationType,int c);
+    
+    
+};
+
+float Pharmacy::getMedicationCost(const string& medicationType, int c) {
+    float cost = getCost(medicationType,c);
+    if (cost != -1) {
+        return cost;
+    }
+    else {
+        cout << "Medication not found!" << endl;
+        return 0; // If medication not found, return 0 cost
+    }
+}
+
+float Pharmacy::getCost(const string& medicationType,int c) {
+    
+    if (medicationType == "1") {
+        listOfMeds[c] = "Antibiotic";
+        c++;
+        return 50;
+
+    }   
+    else if (medicationType == "2") {
+        listOfMeds[c] = "Cough Syrup";
+        c++;
+        return 80;
+    }
+    else if (medicationType == "3") {
+        listOfMeds[c] = "Vitamins";
+        c++;
+        return 30;
+    }
+    else if (medicationType == "4") {
+        listOfMeds[c] = "Antacid";
+        c++;
+        return 25;
+    }
+    else if (medicationType == "5") {
+        listOfMeds[c] = "Ibuprofen";
+        c++;
+        return 40;
+    }
+    return -1;
+
+
+}
+
+
+
+
+
+
+
+
