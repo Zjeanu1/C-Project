@@ -5,34 +5,81 @@ using namespace std;
 
 class Pharmacy {
 public:
-    double getMedicationCost(const string& medicationType);
+   static const int MAX = 10;
 
+    string listOfMeds[MAX];
+    float getMedicationCost(const string& medicationType,int c);
+    
+    
+    void returnPharmacyList(int c) {
+        for (int i = 0; i < c;i++) {
+            cout << listOfMeds[i]<<"\t\t\t";
+            if(listOfMeds[i] == "Antibiotic"){
+              cout<<"$50"<<endl;
+              
+            }
+            else if(listOfMeds[i] == "Cough Syrup"){
+              cout<<"$80"<<endl;
+            }
+            else if(listOfMeds[i] == "Vitamins"){
+              cout<<"$30"<<endl;
+            }
+            
+            else if(listOfMeds[i] == "Antacid"){
+            cout<<"$25"<<endl;
+            }
+            else if(listOfMeds[i] == "Ibuprofen"){
+              cout<<"$40"<<endl;
+            }
+        }
+
+    }
 private:
-    double getCost(const string& medicationType);
+    float getCost(const string& medicationType,int c);
+    
+    
 };
 
-double Pharmacy::getMedicationCost(const string& medicationType) {
-    double cost = getCost(medicationType);
+float Pharmacy::getMedicationCost(const string& medicationType, int c) {
+    float cost = getCost(medicationType,c);
     if (cost != -1) {
         return cost;
-    } else {
+    }
+    else {
         cout << "Medication not found!" << endl;
         return 0; // If medication not found, return 0 cost
     }
 }
 
-double Pharmacy::getCost(const string& medicationType) {
+float Pharmacy::getCost(const string& medicationType,int c) {
+    
     if (medicationType == "1") {
+        listOfMeds[c] = "Antibiotic";
+        c++;
         return 50;
-    } else if (medicationType == "2") {
+
+    }   
+    else if (medicationType == "2") {
+        listOfMeds[c] = "Cough Syrup";
+        c++;
         return 80;
-    } else if (medicationType == "3") {
+    }
+    else if (medicationType == "3") {
+        listOfMeds[c] = "Vitamins";
+        c++;
         return 30;
-    } else if (medicationType == "4") {
+    }
+    else if (medicationType == "4") {
+        listOfMeds[c] = "Antacid";
+        c++;
         return 25;
-    } else if (medicationType == "5") {
+    }
+    else if (medicationType == "5") {
+        listOfMeds[c] = "Ibuprofen";
+        c++;
         return 40;
     }
-    return -1; 
-}
+    return -1;
 
+
+}
