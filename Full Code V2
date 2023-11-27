@@ -1,0 +1,314 @@
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+
+class Patient {
+
+friend class Surgery;
+
+
+private:
+  float charges;
+  int days;
+  const float dayRate = 1250;
+  string fname;
+  string lname;
+
+public:
+
+  //Constructor
+  Patient() {
+    charges = 0;
+    days = 0;
+    fname = "";
+    lname = "";
+
+    }
+
+
+  //Setters
+  void setName() {
+
+
+    cout << "Enter your patient's first name:" << endl;
+    cin >> fname;
+    cout << "Enter your patient's last name:" << endl;
+    cin >> lname;
+
+  }
+
+  void addCharge(float c) {
+    charges += c;
+  }
+
+  void addDays(int d) {
+    days += d;
+
+  }
+
+
+  //Getters
+  float calcDays() {
+    return days * dayRate;
+  }
+
+  void getCharges() {
+    cout<<"Total Charges:\t\t$" << charges<<endl;
+
+  }
+
+  void getName() {
+    cout << "Patient:\t"<<lname << ",\t" << fname<<endl;
+
+  }
+
+  void getDays(){
+    cout<<"Days stayed:\t"<<days<<"\t$"<<calcDays()<<endl;
+
+  }
+
+};
+
+class Pharmacy {
+public:
+   static const int MAX = 10;
+
+    string listOfMeds[MAX];
+    float getMedicationCost(const string& medicationType,int c);
+
+
+    void returnPharmacyList(int c) {
+        for (int i = 0; i < c;i++) {
+            cout << listOfMeds[i]<<"\t\t\t";
+            if(listOfMeds[i] == "Antibiotic"){
+              cout<<"$50"<<endl;
+
+            }
+            else if(listOfMeds[i] == "Cough Syrup"){
+              cout<<"$80"<<endl;
+            }
+            else if(listOfMeds[i] == "Vitamins"){
+              cout<<"$30"<<endl;
+            }
+
+            else if(listOfMeds[i] == "Antacid"){
+            cout<<"$25"<<endl;
+            }
+            else if(listOfMeds[i] == "Ibuprofen"){
+              cout<<"$40"<<endl;
+            }
+        }
+
+    }
+private:
+    float getCost(const string& medicationType,int c);
+
+
+};
+
+float Pharmacy::getMedicationCost(const string& medicationType, int c) {
+    float cost = getCost(medicationType,c);
+    if (cost != -1) {
+        return cost;
+    }
+    else {
+        cout << "Medication not found!" << endl;
+        return 0; // If medication not found, return 0 cost
+    }
+}
+
+float Pharmacy::getCost(const string& medicationType,int c) {
+
+    if (medicationType == "1") {
+        listOfMeds[c] = "Antibiotic";
+        c++;
+        return 50;
+
+    }   
+    else if (medicationType == "2") {
+        listOfMeds[c] = "Cough Syrup";
+        c++;
+        return 80;
+    }
+    else if (medicationType == "3") {
+        listOfMeds[c] = "Vitamins";
+        c++;
+        return 30;
+    }
+    else if (medicationType == "4") {
+        listOfMeds[c] = "Antacid";
+        c++;
+        return 25;
+    }
+    else if (medicationType == "5") {
+        listOfMeds[c] = "Ibuprofen";
+        c++;
+        return 40;
+    }
+    return -1;
+
+
+}
+
+class Surgery {
+public:
+    static const int MAX = 10;
+
+    string listOfSurgeries[MAX];
+    float getSurgeryCost(const string& surgeryType, int c);
+
+    void returnSurgeryList(int c) {
+        for (int i = 0; i < c; i++) {
+            cout << listOfSurgeries[i] << "\t\t\t";
+            if (listOfSurgeries[i] == "Appendectomy") {
+                cout << "$2500" << endl;
+            } else if (listOfSurgeries[i] == "Knee Replacement") {
+                cout << "$5000" << endl;
+            } else if (listOfSurgeries[i] == "Cataract Surgery") {
+                cout << "$1500" << endl;
+            } else if (listOfSurgeries[i] == "Coronary artery bypass") {
+                cout << "$3500" << endl;
+            } else if (listOfSurgeries[i] == "Gallbladder Removal") {
+                cout << "$3000" << endl;
+            } else if (listOfSurgeries[i] == "Hip Replacement") {
+                cout << "$6000" << endl;
+            }
+            // Add more surgery types and costs as needed
+        }
+    }
+
+private:
+    float getCost(const string& surgeryType, int c);
+};
+
+float Surgery::getSurgeryCost(const string& surgeryType, int c) {
+    float cost = getCost(surgeryType, c);
+    if (cost != -1) {
+        return cost;
+    } else {
+        cout << "Surgery type not found!" << endl;
+        return 0; // If surgery type not found, return 0 cost
+    }
+}
+
+float Surgery::getCost(const string& surgeryType, int c) {
+    if (surgeryType == "1") {
+        listOfSurgeries[c] = "Appendectomy";
+        c++;
+        return 2500;
+    } else if (surgeryType == "2") {
+        listOfSurgeries[c] = "Knee Replacement";
+        c++;
+        return 5000;
+    } else if (surgeryType == "3") {
+        listOfSurgeries[c] = "Cataract Surgery";
+        c++;
+        return 1500;
+    } else if (surgeryType == "4") {
+        listOfSurgeries[c] = "Coronary artery bypass";
+        c++;
+        return 3500;
+    } else if (surgeryType == "5") {
+        listOfSurgeries[c] = "Gallbladder Removal";
+        c++;
+        return 3000;
+    } else if (surgeryType == "6") {
+        listOfSurgeries[c] = "Hip Replacement";
+        c++;
+        return 6000;
+    }
+    
+    return -1;
+}
+
+
+
+
+
+int main() {
+  Patient p;
+  int days;
+
+
+  // Creating a Pharmacy object
+  Pharmacy m;
+   Surgery s;
+
+  p.setName();
+
+
+  string medicationType;
+  bool flag = true;
+  int count = 0;
+  while (flag) {
+    char ans = 'y';
+      cout << "Did your patient have any medications(Y or N)?" << endl;
+    cin >> ans;
+    if (ans == 'Y' || ans == 'y') {
+      cout << "Medication Names Menu:\n"
+        << "1. Antibiotic\n"
+        << "2. Cough syrup\n"
+        << "3. Vitamans\n"
+        << "4. Antacid\n"
+        << "5. Ibuprofen\n"
+        << "Enter the medication type: ";
+      cin >> medicationType;
+
+      float cost = m.getMedicationCost(medicationType,count);	\
+        p.addCharge(cost);
+      count++;
+    }
+    else {
+      flag = false;
+
+    }
+  }
+  
+  string surgeryType;
+  bool banner = true;
+  int surgeryCount = 0;
+
+  while (banner) {
+      char ans = 'y';
+      cout << "Did your patient have any surgeries (Y or N)?" << endl;
+      cin >> ans;
+      if (ans == 'Y' || ans == 'y') {
+          cout << "Surgery Menu:\n"
+              << "1. Appendectomy\n"
+              << "2. Knee Replacement\n"
+              << "3. Cataract Surgery\n"
+              << "4. Coronary artery bypass\n"
+              << "5. Gallbladder Removal\n"
+              << "6. Hip Replacement\n"
+              << "Enter the surgery type: ";
+          cin >> surgeryType;
+
+          float cost = s.getSurgeryCost(surgeryType, surgeryCount);
+          p.addCharge(cost);
+          surgeryCount++;
+      } else {
+         banner = false;
+      }
+  }
+  banner = true;
+
+  while(banner){
+    cout << "How many days did your patient spend in the hospital?"<<endl;
+    cin >> days;
+    if (days > 0) {
+      p.addDays(days);
+      p.addCharge(p.calcDays());
+      banner = false;
+    }
+  }
+
+  p.getName();
+  m.returnPharmacyList(count);
+  s.returnSurgeryList(count);
+  p.getDays();
+  p.getCharges();
+
+  return 0;
+}
