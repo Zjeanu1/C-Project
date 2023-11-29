@@ -1,0 +1,12 @@
+             Receipt
+Patient:               Doe, John
+             Charges
+
+Antibiotic                 $50
+Cough Syrup                $80
+Appendectomy               $2500
+Coronary artery bypass     $3500
+
+Days:           3          $3750
+
+Total:                     $9880
